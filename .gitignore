@@ -1,5 +1,15 @@
-# Project exclude paths
-/project/project/target/
-/project/target/
-/target/
-/target/scala-3.0.1/classes/
+target/
+.git/
+.scannerwork/
+.dat
+lib/
+out/
+atlassian-ide-plugin.xml
+.DS_STORE
+
+*.iml
+.idea/
+
+.vscode
+
+/.bsp/
