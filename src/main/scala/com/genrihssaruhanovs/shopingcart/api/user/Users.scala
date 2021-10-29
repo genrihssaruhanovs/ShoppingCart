@@ -1,5 +1,5 @@
-package com.genrihssaruhanovs.shopingcart.model.endpoints
-import com.genrihssaruhanovs.shopingcart.model.Common.{EncryptedPassword, UserId, UserName, UserWithPassword}
+package com.genrihssaruhanovs.shopingcart.api.user
+import com.genrihssaruhanovs.shopingcart.api.Common.{EncryptedPassword, UserId, UserName, UserWithPassword}
 
 trait Users[F[_]] {
   def find(

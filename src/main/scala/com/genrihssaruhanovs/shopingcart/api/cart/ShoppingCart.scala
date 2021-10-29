@@ -1,6 +1,5 @@
-package com.genrihssaruhanovs.shopingcart.model.endpoints
-
-import com.genrihssaruhanovs.shopingcart.model.Common.{Cart, ItemId, Quantity, UserId}
+package com.genrihssaruhanovs.shopingcart.api.cart
+import com.genrihssaruhanovs.shopingcart.api.Common.{Cart, ItemId, Quantity, UserId}
 
 trait ShoppingCart[F[_]] {
   def add(

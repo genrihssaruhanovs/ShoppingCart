@@ -1,6 +1,5 @@
-package com.genrihssaruhanovs.shopingcart.model.endpoints
-
-import com.genrihssaruhanovs.shopingcart.model.Common.{Brand, BrandName, Category, Item, ItemDescription, ItemId, ItemName}
+package com.genrihssaruhanovs.shopingcart.api.item
+import com.genrihssaruhanovs.shopingcart.api.Common.{Brand, BrandName, Category, Item, ItemDescription, ItemId, ItemName}
 import squants.market.Money
 
 trait Items[F[_]] {

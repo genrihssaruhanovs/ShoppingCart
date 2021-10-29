@@ -1,5 +1,4 @@
-package com.genrihssaruhanovs.shopingcart.model
-
+package com.genrihssaruhanovs.shopingcart.api
 import io.estatico.newtype.macros.newtype
 import squants.market.Money
 

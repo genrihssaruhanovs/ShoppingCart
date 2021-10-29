@@ -1,5 +1,5 @@
-package com.genrihssaruhanovs.shopingcart.model.endpoints
-import com.genrihssaruhanovs.shopingcart.model.Common.{JwtToken, Password, User, UserName}
+package com.genrihssaruhanovs.shopingcart.api.authorization
+import com.genrihssaruhanovs.shopingcart.api.Common.{JwtToken, Password, User, UserName}
 
 trait Auth[F[_]] {
   def findUser(token: JwtToken): F[Option[User]]
