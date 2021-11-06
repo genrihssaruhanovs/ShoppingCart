@@ -30,11 +30,11 @@ object Retry {
         ): F[Unit] =
           details match {
             case WillDelayAndRetry(_, retriesSoFar, _) => Logger[F].error(
-                s"Failed on ${ retriable }. We retriad $retriesSoFar times." //TODO - retriable.show
+                s"Failed on $retriable because of ${ e.getMessage }. We retriad $retriesSoFar times." //TODO - retriable.show
               )
             case GivingUp(totalRetries, _) =>
               Logger[F].error(
-                s"Giving up on ${ retriable } after $totalRetries retries." //TODO - retriable.show
+                s"Giving up on $retriable because of ${ e.getMessage }. after $totalRetries retries." //TODO - retriable.show
               )
           }
         retryingOnAllErrors[A](policy, onError)(fa)

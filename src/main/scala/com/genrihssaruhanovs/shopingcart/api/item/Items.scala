@@ -5,9 +5,9 @@ import squants.market.Money
 trait Items[F[_]] {
   def findAll: F[List[Item]]
 
-  def findBy(brand: BrandName): F[Item]
+  def findBy(brand: BrandName): F[List[Item]]
 
-  def findById(id: ItemId): F[Item]
+  def findById(id: ItemId): F[Option[Item]]
 
   def create(
     name: ItemName,

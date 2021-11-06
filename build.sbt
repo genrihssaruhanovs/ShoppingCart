@@ -11,8 +11,10 @@ libraryDependencies ++= Seq(
   newType,
 ) ++
   Monocle.libs ++
-  Cats.libs
+  Cats.libs ++
+  Http4s.libs ++
+  Circe.libs
 
 scalacOptions ++= Seq(
-  "-Ymacro-annotations"
+  "-Ymacro-annotations",
 )

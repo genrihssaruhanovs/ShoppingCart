@@ -27,12 +27,40 @@ object Dependencies {
 
   object Monocle {
     private val version = "3.1.0"
-    private val monocleCore = "dev.optics" %% "monocle-core" % version
-    private val monocleMacro = "dev.optics" %% "monocle-macro" % version
+    private val core = "dev.optics" %% "monocle-core"
+    private val monocleMacro = "dev.optics" %% "monocle-macro"
+
     val libs = Seq(
-      monocleCore,
-      monocleMacro
-    )
+      core,
+      monocleMacro,
+    ).map(_ % version)
+  }
+
+  object Http4s {
+    private val version = "0.23.6"
+    private val dsl = "org.http4s" %% "http4s-dsl"
+    private val blazeServer = "org.http4s" %% "http4s-blaze-server"
+    private val circe = "org.http4s" %% "http4s-circe"
+    val libs = Seq(
+      dsl,
+      blazeServer,
+      circe,
+    ).map(_ % version)
+  }
+
+  object Circe {
+    private val version = "0.14.1"
+    private val core = "io.circe" %% "circe-core"
+    private val generic = "io.circe" %% "circe-generic"
+    private val parser = "io.circe" %% "circe-parser"
+    private val literal = "io.circe" %% "circe-literal"
+
+    val libs = Seq(
+      core,
+      generic,
+      parser,
+      literal,
+    ).map(_ % version)
   }
 
 }

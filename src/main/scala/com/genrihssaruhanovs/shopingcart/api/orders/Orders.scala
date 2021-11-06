@@ -1,5 +1,5 @@
 package com.genrihssaruhanovs.shopingcart.api.orders
-import com.genrihssaruhanovs.shopingcart.api.Common.{Cart, ItemId, Order, OrderId, PaymentId, Quantity, UserId}
+import com.genrihssaruhanovs.shopingcart.api.Common.{ItemId, Order, OrderId, PaymentId, Quantity, UserId}
 import squants.market.Money
 
 trait Orders[F[_]] {

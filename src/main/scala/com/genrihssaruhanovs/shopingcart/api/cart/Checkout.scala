@@ -1,7 +1,7 @@
 package com.genrihssaruhanovs.shopingcart.api.cart
 import cats.MonadThrow
 import cats.implicits._
-import com.genrihssaruhanovs.shopingcart.api.Common.{Card, Cart, ItemId, OrderId, Payment, PaymentId, Quantity, UserId}
+import com.genrihssaruhanovs.shopingcart.api.Common.{Card, ItemId, OrderId, Payment, PaymentId, Quantity, UserId}
 import com.genrihssaruhanovs.shopingcart.api.orders.Orders
 import com.genrihssaruhanovs.shopingcart.api.payment.PaymentClient
 import com.genrihssaruhanovs.shopingcart.utility.Background
@@ -61,7 +61,7 @@ final case class Checkout[F[_] : MonadThrow : Retry : Logger : Background](
       fa.onError {
         case _ =>
           Logger[F].error(
-            s"Failed to create order for: ${ paymentId }" //TODO paymentId.show
+            s"Failed to create order for: $paymentId" //TODO paymentId.show
           ) *>
             Background[F].schedule(backgroundAction(fa), 1.hour)
       }
