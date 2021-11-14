@@ -1,5 +1,4 @@
 package com.genrihssaruhanovs.shopingcart.api
-import io.estatico.newtype.macros.newtype
 import squants.market.Money
 
 import java.util.UUID
@@ -8,53 +7,60 @@ object Common {
 
   /** User related types
     */
-  @newtype case class UserId(value: UUID)
-  @newtype case class UserName(value: String)
-  @newtype case class Password(value: String)
-  @newtype case class EncryptedPassword(value: String)
-  @newtype case class JwtToken(value: String)
+  case class UserId(value: UUID) extends AnyVal
+  case class UserName(value: String) extends AnyVal
+  case class Password(value: String) extends AnyVal
+  case class EncryptedPassword(value: String) extends AnyVal
+  case class JwtToken(value: String) extends AnyVal
 
   /** Brand related types
     */
-  @newtype case class BrandId(value: UUID)
-  @newtype case class BrandName(value: String)
+  case class BrandId(value: UUID) extends AnyVal
+  case class BrandName(value: String) extends AnyVal
 
   /** Category related types
     */
-  @newtype case class CategoryId(value: UUID)
-  @newtype case class CategoryName(value: String)
+  case class CategoryId(value: UUID) extends AnyVal
+  case class CategoryName(value: String) extends AnyVal
 
   /** Item related types
     */
-  @newtype case class ItemId(value: UUID)
-  @newtype case class ItemName(value: String)
-  @newtype case class ItemDescription(value: String)
+  case class ItemId(value: UUID) extends AnyVal
+  case class ItemName(value: String) extends AnyVal
+  case class ItemDescription(value: String) extends AnyVal
 
   /** Shopping card related types
     */
-  @newtype case class Quantity(value: Int)
+  case class Quantity(value: Int) extends AnyVal
 
   /** Order related types
     */
-  @newtype case class OrderId(value: UUID)
-  @newtype case class PaymentId(value: UUID)
+  case class OrderId(value: UUID) extends AnyVal
+  case class PaymentId(value: UUID) extends AnyVal
 
   /** Payment related types
     */
-  @newtype case class CardHoldersName(value: String)
-  @newtype case class CardNumber(value: String)
-  @newtype case class CardExpiration(value: String)
-  @newtype case class CardCvv(value: String)
+  case class CardHoldersName(value: String) extends AnyVal
+  case class CardNumber(value: String) extends AnyVal
+  case class CardExpiration(value: String) extends AnyVal
+  case class CardCvv(value: String) extends AnyVal
 
   /** Model Classes begin here
     */
-  case class User(id: UserId, name: UserName)
 
-  case class UserWithPassword(
-    id: UserId,
-    name: UserName,
-    password: EncryptedPassword
-  )
+  sealed trait User {
+    def id: UserId
+    def name: UserName
+  }
+  object User {
+    case class CommonUser(id: UserId, name: UserName) extends User
+
+    case class UserWithPassword(
+      id: UserId,
+      name: UserName,
+      password: EncryptedPassword
+    ) extends User
+  }
 
   case class Brand(uuid: BrandId, name: BrandName)
 
