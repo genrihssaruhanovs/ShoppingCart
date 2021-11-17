@@ -2,8 +2,10 @@ package com.genrihssaruhanovs.shopingcart.api
 import squants.market.Money
 
 import java.util.UUID
+import scala.util.matching.Regex
 
 object Common {
+  type ErrorMessage = String
 
   /** User related types
     */
@@ -40,10 +42,34 @@ object Common {
 
   /** Payment related types
     */
-  case class CardHoldersName(value: String) extends AnyVal
-  case class CardNumber(value: String) extends AnyVal
-  case class CardExpiration(value: String) extends AnyVal
-  case class CardCvv(value: String) extends AnyVal
+  case class CardHoldersName private (value: String) extends AnyVal
+  object CardHoldersName {
+    def of(value: String): Either[ErrorMessage, CardHoldersName] = {
+      val regex: Regex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$".r
+      Either.cond(regex.matches(value), CardHoldersName(value), "Wrong card holders name")
+    }
+  }
+  case class CardNumber private (value: String) extends AnyVal
+  object CardNumber {
+    def of(value: String): Either[ErrorMessage, CardNumber] = {
+      val regex: Regex = "[/d]{16}$".r
+      Either.cond(regex.matches(value), CardNumber(value), "Wrong card number name")
+    }
+  }
+  case class CardExpiration private (value: String) extends AnyVal
+  object CardExpiration {
+    def of(value: String): Either[ErrorMessage, CardExpiration] = {
+      val regex: Regex = "[0-9]{2}/[0-9]{2}$".r
+      Either.cond(regex.matches(value), CardExpiration(value), "Wrong card number name")
+    }
+  }
+  case class CardCvv private (value: String) extends AnyVal
+  object CardCvv {
+    def of(value: String): Either[ErrorMessage, CardCvv] = {
+      val regex: Regex = "[/d]{3}$".r
+      Either.cond(regex.matches(value), CardCvv(value), "Wrong card number name")
+    }
+  }
 
   /** Model Classes begin here
     */
@@ -93,7 +119,6 @@ object Common {
     expiration: CardExpiration,
     cvv: CardCvv
   )
-
   case class Payment(
     id: UserId,
     total: Money,

@@ -20,8 +20,8 @@ object HealthCheck {
       }(if (_) Okay else Unreachable)
 
   }
-  @newtype case class RedisStatus(value: Status)
-  @newtype case class PostgresStatus(value: Status)
+  case class RedisStatus(value: Status) extends AnyVal
+  case class PostgresStatus(value: Status) extends AnyVal
 
   case class AppStatus(
     redis: RedisStatus,
