@@ -1,29 +1,33 @@
 package com.genrihssaruhanovs.shopingcart.json
-import com.genrihssaruhanovs.shopingcart.api.Common._
-import com.genrihssaruhanovs.shopingcart.db.HealthCheck
-import io.circe.{Codec, Decoder, DecodingFailure, Encoder, KeyDecoder, KeyEncoder}
+import java.util.UUID
+
+import cats.syntax.either._
+import com.genrihssaruhanovs.shopingcart.database.HealthCheck
+import com.genrihssaruhanovs.shopingcart.domain._
+import com.genrihssaruhanovs.shopingcart.domain.Common._
+import com.genrihssaruhanovs.shopingcart.domain.User.CreateUser
+import dev.profunktor.auth.jwt.JwtToken
+import io.circe._
 import io.circe.generic.semiauto._
 import squants.market.{Money, USD}
 
-import java.util.UUID
-import cats.syntax.either._
-
 object ProtocolCodecs {
-  implicit val paymentIdCodec: Codec[PaymentId] = deriveCodec
-  implicit val orderIdCodec: Codec[OrderId] = deriveCodec
-  implicit val brandIdCodec: Codec[BrandId] = deriveCodec
-  implicit val categoryIdCodec: Codec[CategoryId] = deriveCodec
-  implicit val itemIdCodec: Codec[ItemId] = deriveCodec
-  implicit val userIdCodec: Codec[UserId] = deriveCodec
+  implicit val paymentIdCodec: Codec[Payment.Id] = deriveCodec
+  implicit val orderIdCodec: Codec[Order.Id] = deriveCodec
+  implicit val brandIdCodec: Codec[Brand.Id] = deriveCodec
+  implicit val categoryIdCodec: Codec[Category.Id] = deriveCodec
+  implicit val itemIdCodec: Codec[Item.Id] = deriveCodec
+  implicit val userIdCodec: Codec[User.Id] = deriveCodec
+  implicit val userNameCodec: Codec[User.Name] = deriveCodec
 
-  implicit val brandNameCodec: Codec[BrandName] = deriveCodec
+  implicit val brandNameCodec: Codec[Brand.Name] = deriveCodec
   implicit val brandCodec: Codec[Brand] = deriveCodec
 
-  implicit val categoryNameCodec: Codec[CategoryName] = deriveCodec
+  implicit val categoryNameCodec: Codec[Category.Name] = deriveCodec
   implicit val categoryCodec: Codec[Category] = deriveCodec
 
-  implicit val itemNameCodec: Codec[ItemName] = deriveCodec
-  implicit val itemDescriptionCodec: Codec[ItemDescription] = deriveCodec
+  implicit val itemNameCodec: Codec[Item.Name] = deriveCodec
+  implicit val itemDescriptionCodec: Codec[Item.Description] = deriveCodec
   implicit val moneyDecoder: Decoder[Money] = Decoder[BigDecimal].map(USD.apply)
   implicit val moneyEncoder: Encoder[Money] = Encoder[BigDecimal].contramap(_.amount)
   implicit val itemCodec: Codec[Item] = deriveCodec
@@ -33,25 +37,23 @@ object ProtocolCodecs {
   implicit val postgresStatusEncoder: Encoder[HealthCheck.PostgresStatus] = deriveEncoder
   implicit val appStatusEncoder: Encoder[HealthCheck.AppStatus] = deriveEncoder
 
-  implicit val userNameCodec: Codec[UserName] = deriveCodec
-  implicit val encryptedPasswordCodec: Codec[EncryptedPassword] = deriveCodec
+  implicit val jwtCodec: Codec[JwtToken] = deriveCodec
   implicit val userCodec: Codec[User] = deriveCodec
+  implicit val createUserCodec: Codec[CreateUser] = deriveCodec
 
   implicit val quantityCodec: Codec[Quantity] = deriveCodec
-  implicit val itemKeyDecoder: KeyDecoder[ItemId] =
-    (key: String) => Either.catchNonFatal(ItemId(UUID.fromString(key))).toOption
-  implicit val itemKeyEncoder: KeyEncoder[ItemId] = (key: ItemId) => key.toString
+  implicit val itemKeyDecoder: KeyDecoder[Item.Id] =
+    (key: String) => Either.catchNonFatal(Item.Id(UUID.fromString(key))).toOption
+  implicit val itemKeyEncoder: KeyEncoder[Item.Id] = (key: Item.Id) => key.toString
 
-  implicit val cartDecoder: Decoder[Cart] = deriveDecoder
-  implicit val cartEncoder: Encoder[Cart] = deriveEncoder
+  implicit val cartCodec: Codec[Cart] = deriveCodec
+  implicit val cartTotalCodec: Codec[Cart.Total] = deriveCodec
 
   implicit val orderCodec: Codec[Order] = deriveCodec
 
-  implicit val cardHoldersNameDecoder: Decoder[CardHoldersName] = Decoder.decodeString.emap(CardHoldersName.of)
-  implicit val cardNumberDecoder: Decoder[CardNumber] = Decoder.decodeString.emap(CardNumber.of)
-  implicit val cardExpirationDecoder: Decoder[CardExpiration] = Decoder.decodeString.emap(CardExpiration.of)
-  implicit val cardCvvDecoder: Decoder[CardCvv] = Decoder.decodeString.emap(CardCvv.of)
-
+  implicit val cardHoldersNameDecoder: Decoder[Card.HoldersName] = deriveCodec
+  implicit val cardNumberDecoder: Decoder[Card.Number] = deriveCodec
+  implicit val cardExpirationDecoder: Decoder[Card.Expiration] = deriveCodec
+  implicit val cardCvvDecoder: Decoder[Card.Cvv] = deriveCodec
   implicit val cardDecoder: Decoder[Card] = deriveDecoder
-
 }

@@ -7,6 +7,9 @@ object Dependencies {
   private val newTypeVersion = "0.4.4"
   val newType = "io.estatico" %% "newtype" % newTypeVersion
 
+  private val refinedVersion = "0.9.29"
+  val refined = "eu.timepit" %% "refined" % refinedVersion
+
   object Cats {
     private val retryVersion = "3.1.0"
     private val coreVersion = "2.6.1"
@@ -61,6 +64,17 @@ object Dependencies {
       parser,
       literal,
     ).map(_ % version)
+  }
+
+  object Profunktor {
+    private val httpsJwtAuthVersion = "1.0.0"
+    private val redis4catsVersion = "1.1.1"
+    val http4sJwtAuth = "dev.profunktor" %% "http4s-jwt-auth" % httpsJwtAuthVersion
+//    val redis4catsEffects  = "dev.profunktor" %% "redis4cats-effects"  % V.redis4cats
+//    val redis4catsLog4cats = "dev.profunktor" %% "redis4cats-log4cats" % V.redis4cats
+    val libs = Seq(
+      http4sJwtAuth
+    )
   }
 
 }
